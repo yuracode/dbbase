@@ -89,25 +89,26 @@ MongoDBはUbuntuの標準リポジトリには含まれないため、公式リ�
 
 ```bash
 # 必要なツールをインストール
-sudo apt install -y gnupg curl
+sudo apt-get install -y gnupg curl
 
-# MongoDB 公式GPGキーを追加
-curl -fsSL https://www.mongodb.org/static/pgp/server-7.0.asc | \
-  sudo gpg -o /usr/share/keyrings/mongodb-server-7.0.gpg --dearmor
+# MongoDB 8.0 公式GPGキーを追加
+curl -fsSL https://www.mongodb.org/static/pgp/server-8.0.asc | \
+  sudo gpg -o /usr/share/keyrings/mongodb-server-8.0.gpg --dearmor
 
 # リポジトリを追加（Ubuntu 24.04 / WSL2）
-echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-7.0.gpg ] \
-  https://repo.mongodb.org/apt/ubuntu noble/mongodb-org/7.0 multiverse" | \
-  sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list
+echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-8.0.gpg ] \
+  https://repo.mongodb.org/apt/ubuntu noble/mongodb-org/8.0 multiverse" | \
+  sudo tee /etc/apt/sources.list.d/mongodb-org-8.0.list
 
 # パッケージ情報を更新してインストール
-sudo apt update
-sudo apt install -y mongodb-org
+sudo apt-get update
+sudo apt-get install -y mongodb-org
 ```
 
 > **Ubuntu 24.04 (Noble Numbat) 注意点**
-> Ubuntu 22.04 を使用していた旧バージョンのテキストでは `jammy/mongodb-org/7.0` と記載されている場合があるが、
-> Ubuntu 24.04 では `noble/mongodb-org/7.0` に変更する必要がある。
+> MongoDB 8.0 は Ubuntu 24.04 (Noble Numbat) を公式サポートしている。
+> Ubuntu 22.04 (Jammy) 環境では `noble` の部分を `jammy` に変更すること。
+> 参考：https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/
 
 ---
 
@@ -264,7 +265,7 @@ docker run -d \
   -e MONGO_INITDB_ROOT_USERNAME=admin \
   -e MONGO_INITDB_ROOT_PASSWORD=adminpass \
   -p 27018:27017 \
-  mongo:7.0
+  mongo:8.0
 ```
 
 | オプション | 意味 |
